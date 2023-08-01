@@ -3,7 +3,7 @@ import { galleryItems } from './gallery-items.js';
 
 console.log(galleryItems);
 const galleryItemsMarkup = makeGalleryItemsMarkup(galleryItems);
-console.log(galleryItemsMarkup)
+// console.log(galleryItemsMarkup)
 const galleryItemsContainer = document.querySelector('.gallery')
 console.log(galleryItemsContainer)
 galleryItemsContainer.insertAdjacentHTML('beforeend', galleryItemsMarkup)
@@ -23,7 +23,33 @@ function makeGalleryItemsMarkup(items) {
     }).join('')
 }
 galleryItemsContainer.addEventListener('click', onGalleryItemsClick)
-// Реалізація делегування на ul.gallery і отримання url великого зображення.
 function onGalleryItemsClick(event) {
-      console.log(event.target)
-  }     
+  event.preventDefault();
+  console.log(event.target)
+   console.log(event.currentTarget)
+    if (event.target === event.currentTarget) {
+        return
+    }
+    const currentItem = event.target.closest('.gallery__item');
+    console.log(currentItem)
+
+      const instance = basicLightbox.create(` <li class='modal'>
+  <img src="${currentItem.firstElementChild.href}" >
+</li>
+    `
+      )
+  instance.show()
+  window.addEventListener('keydown', onEscKeyPress)
+  function onEscKeyPress(event) {
+    if (event.code === "Escape") {
+      instance.close()
+      window.removeEventListener('keydown', onEscKeyPress)
+}
+
+}
+
+} 
+
+
+
+
