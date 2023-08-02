@@ -17,19 +17,7 @@ function makeGalleryItemsMarkup(items) {
 </li>`
     }).join('')
 }
-
-
-galleryItemsContainer.addEventListener('click', onGalleryItemsClick)
-function onGalleryItemsClick(event) {
-    event.preventDefault();
-    console.log(event.target)
-    console.log(event.currentTarget)
-    if (event.target === event.currentTarget) {
-        return
-    }
-    const currentItem = event.target.closest('.gallery__item');
-    console.log(currentItem)
-        const lightbox = new SimpleLightbox('.gallery__link', { 
+const lightbox = new SimpleLightbox('.gallery__link', { 
             showImageNumberLabel: false,
             overlay: false,
             captionDelay: 250,
@@ -37,19 +25,5 @@ function onGalleryItemsClick(event) {
             captionType: 'attr',
             captionsData: 'alt'
         });
-    console.log(lightbox)
-        lightbox.open();
-        
-    };
-    
-        ;
 
-    
-        window.addEventListener('keydown', onEscKeyPress)
-    function onEscKeyPress(event) {
-        if (event.code === "Escape") {
-            lightbox.close()
-            window.removeEventListener('keydown', onEscKeyPress)
-        }
-    }
 
