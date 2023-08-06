@@ -26,29 +26,42 @@ galleryItemsContainer.addEventListener('click', onGalleryItemsClick)
 function onGalleryItemsClick(event) {
   event.preventDefault();
   console.log(event.target)
-   console.log(event.currentTarget)
-    if (event.target === event.currentTarget) {
-        return
-    }
-    const currentItem = event.target.closest('.gallery__item');
-    console.log(currentItem)
+  console.log(event.currentTarget)
+  if (event.target === event.currentTarget) {
+    window.removeEventListener('keydown', onEscKeyPress)
+    return
+  }
+  const currentItem = event.target.closest('.gallery__item');
+  console.log(currentItem)
 
-      const instance = basicLightbox.create(` <li class='modal'>
+  const instance = basicLightbox.create(` <li class='modal'>
   <img src="${currentItem.firstElementChild.href}" >
 </li>
     `
-      )
+  )
   instance.show()
+  
   window.addEventListener('keydown', onEscKeyPress)
   function onEscKeyPress(event) {
     if (event.code === "Escape") {
-      instance.close()
-      window.removeEventListener('keydown', onEscKeyPress)
-}
+       instance.close(() => console.log('lightbox not visible anymore'))
+      window.removeEventListener('keydown', onEscKeyPress)      
+    }
+     
+  } 
+  
+    
 
-}
+  }
 
-} 
+ 
+
+       
+    
+
+
+      
+  
 
 
 
